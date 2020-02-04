@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.restwebservices.bean.Exception.UserResourceNotFoundException;
+
 /**
  * @author ezaksch
  *
@@ -35,7 +37,11 @@ public class UserResource {
 	
 	@GetMapping(path="/users/{id}")
 	public User retrieveSpecific(@PathVariable int id){
-		return service.findOne(id);
+		User user=service.findOne(id);
+		if(user==null){
+			throw new UserResourceNotFoundException("invalid id"+ id);
+		}
+		return user;
 	}
 	
 	@PostMapping(path="/users")
