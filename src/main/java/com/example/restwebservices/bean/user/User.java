@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 
 public class User {
 
-	@Size(min=2)
+	@Size(min=2,message="String is less than 2")
 	private String name;
 	private Integer id;
 	@Past
