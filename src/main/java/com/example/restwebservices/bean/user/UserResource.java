@@ -1,9 +1,12 @@
 package com.example.restwebservices.bean.user;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,14 +41,21 @@ public class UserResource {
 	}
 	
 	@GetMapping(path="/users/{id}")
-	public User retrieveSpecific(@PathVariable int id){
+	public EntityModel<User> retrieveSpecific(@PathVariable int id){
 		User user=service.findOne(id);
 		if(user==null){
 			throw new UserResourceNotFoundException("invalid id"+ id);
 		}
-		return user;
+		//all-users-->"/users"
+		//to retrieve all users using HATEOAS
+		
+		EntityModel<User> model = new EntityModel<>(user);
+		WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAll());
+		model.add(linkTo.withRel("all-users"));
+		return model;
 	}
 	
+
 	@PostMapping(path="/users")
 	public ResponseEntity<Object> createUser(@Validated @RequestBody User user){
 		User saved=service.save(user);
