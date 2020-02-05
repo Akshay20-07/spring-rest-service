@@ -20,6 +20,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.restwebservices.bean.Exception.UserResourceNotFoundException;
 
 /**
+ * implementation of GET,POST,DELETE along with HATEOAS 
+ * HATEOAS ---implemented using WebMvcLinkBuilder instead of ControllerLinkBuilder
  * @author ezaksch
  *
  */
