@@ -6,10 +6,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
+/**
+ * @author ezaksch
+ *
+ */
 @ComponentScan(basePackages={"com.example"})
 @SpringBootApplication
 public class SpringRestServicesApplication {
@@ -18,21 +21,32 @@ public class SpringRestServicesApplication {
 		SpringApplication.run(SpringRestServicesApplication.class, args);
 	}
 
-	@Bean
+	/**To get the LocalSessionResolver
+	 * @return
+	 */
+/*	@Bean
 	public LocaleResolver localeResolver(){
 		SessionLocaleResolver locale= new SessionLocaleResolver();
 		locale.setDefaultLocale(Locale.US);
 		return locale;
 	}
+	*/
 	
+	@Bean
+	public LocaleResolver localeResolver(){
+		AcceptHeaderLocaleResolver locale= new AcceptHeaderLocaleResolver();
+		locale.setDefaultLocale(Locale.US);
+		return locale;
+	}
 	/**
 	 * It has provided the name of the property file where to reference from
 	 * @return
 	 */
-	@Bean
+	//This we can directly provide in application.properties
+/*	@Bean
 	public ResourceBundleMessageSource messageSource(){
 		ResourceBundleMessageSource msgSrc= new ResourceBundleMessageSource();
 		msgSrc.setBasename("message");
 		return msgSrc;
-	}
+	}*/
 }
