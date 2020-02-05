@@ -2,6 +2,7 @@ package com.example.restwebservices.bean.user;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -36,7 +37,20 @@ public class UserDaoService {
 				return user;
 			}
 		}
-		return null;
-		
+		return null;		
 	}
+	
+	public boolean remove(int id){
+		Iterator<User> itr=userList.iterator();
+		while(itr.hasNext()){
+			User user=itr.next();
+			if(user.getId()==id){
+				itr.remove();
+				return true;
+			}
+		}
+		return false;		
+	}
+	
+	
 }
