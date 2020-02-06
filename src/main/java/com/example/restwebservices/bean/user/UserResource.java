@@ -74,7 +74,6 @@ public class UserResource {
 		return resource;
 	}
 	
-
 	@PostMapping(path="/users")
 	public ResponseEntity<Object> createUser(@Validated @RequestBody User user){
 		User saved=service.save(user);

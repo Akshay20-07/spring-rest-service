@@ -1,15 +1,21 @@
 package com.example.restwebservices.bean.user;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+@ApiModel(description="Constraints about the User")
 public class User {
 
 	@Size(min=2,message="String is less than 2")
+	@ApiModelProperty(notes="String should be more than 2 character")
 	private String name;
 	private Integer id;
+	@ApiModelProperty(notes="DOB should be in past")
 	@Past
 	private Date date;
 
