@@ -1,8 +1,9 @@
 package com.example.restwebservices.bean.filter;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonFilter;
 
-@JsonIgnoreProperties(value={"field1","filed2"})
+//@JsonIgnoreProperties(value={"field1","field2"})
+@JsonFilter("Dynamic Filter")
 public class Sample {
 
 	private String field1;
