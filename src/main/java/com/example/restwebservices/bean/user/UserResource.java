@@ -1,12 +1,14 @@
 package com.example.restwebservices.bean.user;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,7 +44,7 @@ public class UserResource {
 		return service.findAll();
 	}
 	
-	@GetMapping(path="/users/{id}")
+/*	@GetMapping(path="/users/{id}")
 	public EntityModel<User> retrieveSpecific(@PathVariable int id){
 		User user=service.findOne(id);
 		if(user==null){
@@ -55,6 +57,21 @@ public class UserResource {
 		WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAll());
 		model.add(linkTo.withRel("all-users"));
 		return model;
+	}*/
+	
+	@GetMapping(path="/users/{id}")
+	public Resource<User> retrieveSpecific(@PathVariable int id){
+		User user=service.findOne(id);
+		if(user==null){
+			throw new UserResourceNotFoundException("invalid id"+ id);
+		}
+		//all-users-->"/users"
+		//to retrieve all users using HATEOAS
+		
+		Resource<User> resource = new Resource<User>(user);
+		ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAll());
+		resource.add(linkTo.withRel("all-users"));
+		return resource;
 	}
 	
 
