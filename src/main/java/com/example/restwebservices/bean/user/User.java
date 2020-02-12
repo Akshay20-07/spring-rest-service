@@ -4,10 +4,12 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
@@ -24,7 +26,16 @@ public class User {
 	@ApiModelProperty(notes="DOB should be in past")
 	@Past
 	private Date date;
+	
+	@OneToMany(mappedBy="user")
+	private List<Post> postList;
 
+	public List<Post> getPostList() {
+		return postList;
+	}
+	public void setPostList(List<Post> postList) {
+		this.postList = postList;
+	}
 	protected User(){
 		
 	}

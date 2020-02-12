@@ -85,13 +85,16 @@ public class UserJPAResource {
 	@DeleteMapping(path="/jpa/users/{id}")
 	public void deleteSpecific(@PathVariable int id){
 		userRepository.deleteById(id);
-		
-/*		if(flag==false){
-			throw new UserResourceNotFoundException("invalid id"+ id);
-		}
-		return flag;*/
+
 	}
 	
-	
+	@GetMapping(path="/jpa/users/{id}/posts")
+	public List<Post> retrieveAllPost(@PathVariable int id){
+		Optional<User> user=userRepository.findById(id);
+		if(!user.isPresent()){
+			throw new UserResourceNotFoundException("invalid id"+ id);
+		}
+		return user.get().getPostList();
+	}
 
 }
