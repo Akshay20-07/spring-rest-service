@@ -42,7 +42,7 @@ spring boot using rest service for beginners
 
 
 
-###Learnings
+### Learnings
 - What is a RESTful Web Service? 
 - How to implement RESTful Web Services with Spring and Spring Boot?
 - What are the best practices in designing RESTful Web Services? 
