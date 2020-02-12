@@ -5,15 +5,21 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 @ApiModel(description="Constraints about the User")
+@Entity
 public class User {
 
 	@Size(min=2,message="String is less than 2")
 	@ApiModelProperty(notes="String should be more than 2 character")
 	private String name;
+	@Id
+	@GeneratedValue
 	private Integer id;
 	@ApiModelProperty(notes="DOB should be in past")
 	@Past
